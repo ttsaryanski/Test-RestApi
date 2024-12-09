@@ -14,7 +14,11 @@ router.post("/register", async (req, res) => {
 
     res
       .status(200)
-      .cookie("auth", accessToken, { httpOnly: true })
+      .cookie("auth", accessToken, {
+        httpOnly: true,
+        sameSite: "None",
+        secure: true,
+      })
       .send(accessToken.user)
       .end();
   } catch (error) {
@@ -45,7 +49,11 @@ router.post("/login", async (req, res) => {
 
     res
       .status(200)
-      .cookie("auth", accessToken, { httpOnly: true })
+      .cookie("auth", accessToken, {
+        httpOnly: true,
+        sameSite: "None",
+        secure: true,
+      })
       .send(accessToken.user)
       .end();
   } catch (error) {
