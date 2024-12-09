@@ -86,7 +86,10 @@ router.post("/logout", async (req, res) => {
 
   try {
     await authService.logout(token);
-    res.status(204).clearCookie("auth").end();
+    res
+      .status(204)
+      .clearCookie("auth", { secure: true, sameSite: "None" })
+      .end();
   } catch (error) {
     res
       .status(500)
