@@ -1,18 +1,25 @@
 import bcrypt from "bcrypt";
 
+import File from "../models/File.js";
+
 import jwt from "../lib/jwt.js";
 import User from "../models/User.js";
 import InvalidToken from "../models/InvalidToken.js";
 import { JWT_SECRET } from "../config/constans.js";
 
-const register = async (username, email, password) => {
+const register = async (username, email, password, profilePicture) => {
   const user = await User.findOne({ $or: [{ username }, { email }] });
 
   if (user) {
     throw new Error("This username or email already registered!");
   }
 
-  const createdUser = await User.create({ username, email, password });
+  const createdUser = await User.create({
+    username,
+    email,
+    password,
+    profilePicture: profilePicture || null,
+  });
 
   return createAccessToken(createdUser);
 };
@@ -37,6 +44,8 @@ const logout = (token) => InvalidToken.create({ token });
 
 const getUserById = (id) => User.findById(id);
 
+const saveUserFile = (fileName, fileUrl) => File.create({ fileName, fileUrl });
+
 async function createAccessToken(user) {
   const payload = {
     _id: user._id,
@@ -57,4 +66,5 @@ export default {
   login,
   logout,
   getUserById,
+  saveUserFile,
 };

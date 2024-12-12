@@ -10,7 +10,7 @@ export default function expressInit(app) {
   app.use(cookieParser());
   app.use(
     cors({
-      origin: "https://test-client-hgl0.onrender.com",
+      origin: "http://localhost:4200",
       credentials: true,
     })
   );

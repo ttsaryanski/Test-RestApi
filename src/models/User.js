@@ -32,6 +32,10 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  profilePicture: {
+    fileName: String,
+    fileUrl: String,
+  },
 });
 
 userSchema.pre("save", async function () {
