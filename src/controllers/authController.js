@@ -46,7 +46,11 @@ router.post("/register", upload.single("profilePicture"), async (req, res) => {
 
     res
       .status(200)
-      .cookie("auth", accessToken, { httpOnly: true })
+      .cookie("auth", accessToken, {
+        httpOnly: true,
+        sameSite: "None",
+        secure: true,
+      })
       .send(accessToken.user)
       .end();
   } catch (error) {
@@ -77,7 +81,11 @@ router.post("/login", async (req, res) => {
 
     res
       .status(200)
-      .cookie("auth", accessToken, { httpOnly: true })
+      .cookie("auth", accessToken, {
+        httpOnly: true,
+        sameSite: "None",
+        secure: true,
+      })
       .send(accessToken.user)
       .end();
   } catch (error) {
@@ -115,8 +123,7 @@ router.post("/logout", async (req, res) => {
       .clearCookie("auth", {
         httpOnly: true,
         secure: true,
-        sameSite: "Strict",
-        path: "/",
+        sameSite: "None",
       })
       .end();
   } catch (error) {
