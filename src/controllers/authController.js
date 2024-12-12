@@ -110,7 +110,10 @@ router.post("/logout", async (req, res) => {
 
   try {
     await authService.logout(token);
-    res.status(204).clearCookie("auth").end();
+    res
+      .status(204)
+      .clearCookie("auth", { httpOnly: true, secure: true, sameSite: "Strict" })
+      .end();
   } catch (error) {
     res
       .status(500)
