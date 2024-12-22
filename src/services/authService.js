@@ -1,14 +1,10 @@
 import bcrypt from "bcrypt";
-//import dotenv from "dotenv";
 
+import User from "../models/User.js";
 import File from "../models/File.js";
 
-import jwt from "../lib/jwt.js";
-import User from "../models/User.js";
 import InvalidToken from "../models/InvalidToken.js";
-
-//dotenv.config();
-//import { JWT_SECRET } from "../config/constans.js";
+import jwt from "../lib/jwt.js";
 
 const register = async (username, email, password, profilePicture) => {
   const user = await User.findOne({ $or: [{ username }, { email }] });

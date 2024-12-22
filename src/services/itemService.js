@@ -1,5 +1,3 @@
-import querystring from "querystring";
-
 import Item from "../models/Item.js";
 
 const getAll = (query = {}) => {

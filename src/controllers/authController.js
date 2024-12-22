@@ -1,13 +1,14 @@
 import { Router } from "express";
 import fs from "fs";
-import upload from "../utils/multerStorage.js";
-import s3 from "../utils/AWS S3 client.js";
-import { PutObjectCommand } from "@aws-sdk/client-s3";
 import path from "path";
+import { PutObjectCommand } from "@aws-sdk/client-s3";
 
 import authService from "../services/authService.js";
+
 import { createErrorMsg } from "../utils/errorUtil.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
+import upload from "../utils/multerStorage.js";
+import s3 from "../utils/AWS S3 client.js";
 
 const router = Router();
 
@@ -122,8 +123,8 @@ router.post("/logout", async (req, res) => {
       .status(204)
       .clearCookie("auth", {
         httpOnly: true,
-        secure: true,
         sameSite: "None",
+        secure: true,
       })
       .end();
   } catch (error) {
@@ -148,26 +149,5 @@ router.get("/profile", authMiddleware, async (req, res) => {
       .end();
   }
 });
-
-// router.post("/upload", upload.single("file"), async (req, res) => {
-//   const filePath = req.file.path;
-
-//   const uploadParams = {
-//     Bucket: "profilePic",
-//     Key: path.basename(filePath),
-//     Body: fs.createReadStream(filePath),
-//   };
-
-//   const command = new PutObjectCommand(uploadParams);
-//   const s3Response = await s3.send(command);
-
-//   const fileName = req.file.originalname;
-//   const fileUrl = `https://${uploadParams.Bucket}.s3.amazonaws.com/${uploadParams.Key}`;
-
-//   try {
-//     const file = await authService.saveUserFile(fileName, fileUrl);
-//     console.log(file);
-//   } catch (error) {}
-// });
 
 export default router;

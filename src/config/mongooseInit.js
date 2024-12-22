@@ -1,9 +1,4 @@
 import { connect } from "mongoose";
-// import dotenv from "dotenv";
-
-// dotenv.config();
-
-//import { CloudDB_URL } from "./constans.js";
 
 export default async function mongooseInit() {
   try {

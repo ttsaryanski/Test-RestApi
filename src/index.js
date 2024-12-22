@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { PORT } from "./config/constans.js";
-
 import expressInit from "./config/expressInit.js";
 import mongooseInit from "./config/mongooseInit.js";
 
