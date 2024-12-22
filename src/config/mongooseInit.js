@@ -1,10 +1,13 @@
 import { connect } from "mongoose";
+// import dotenv from "dotenv";
 
-import { CloudDB_URL } from "./constans.js";
+// dotenv.config();
+
+//import { CloudDB_URL } from "./constans.js";
 
 export default async function mongooseInit() {
   try {
-    await connect(CloudDB_URL, { dbName: "CookingTogether" });
+    await connect(process.env.CLOUD_DB_URL, { dbName: "CookingTogether" });
 
     console.log("Successfully connect to cloud DB!");
   } catch (error) {

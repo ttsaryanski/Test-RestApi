@@ -1,11 +1,14 @@
 import bcrypt from "bcrypt";
+//import dotenv from "dotenv";
 
 import File from "../models/File.js";
 
 import jwt from "../lib/jwt.js";
 import User from "../models/User.js";
 import InvalidToken from "../models/InvalidToken.js";
-import { JWT_SECRET } from "../config/constans.js";
+
+//dotenv.config();
+//import { JWT_SECRET } from "../config/constans.js";
 
 const register = async (username, email, password, profilePicture) => {
   const user = await User.findOne({ $or: [{ username }, { email }] });
@@ -53,7 +56,9 @@ async function createAccessToken(user) {
     email: user.email,
   };
 
-  const token = await jwt.sign(payload, JWT_SECRET, { expiresIn: "1d" });
+  const token = await jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: "1d",
+  });
 
   return {
     user,
