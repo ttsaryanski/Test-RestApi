@@ -10,6 +10,7 @@ const authMiddleware = async (req, res, next) => {
 
   try {
     const invalidToken = await InvaliToken.findOne({ token });
+
     if (invalidToken) {
       return res.status(403).send({ message: "Invalid token!" }).end();
     }

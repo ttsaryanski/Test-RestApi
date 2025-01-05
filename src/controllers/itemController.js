@@ -121,10 +121,11 @@ router.get("/:itemId", async (req, res) => {
 
   try {
     const item = await itemService.getById(itemId);
+
     if (item !== null) {
       res.status(200).json(item).end();
     } else {
-      res.status(404).json({ message: "Not item whit this id" }).end();
+      res.status(404).json({ message: "There is no item with this id." }).end();
     }
   } catch (error) {
     res.status(500).json({ message: createErrorMsg(error) });
